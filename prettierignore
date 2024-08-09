@@ -1,0 +1,12 @@
+# Ignore artifacts:
+build
+coverage
+
+.github
+.vscode
+
+ios
+android
+
+# Ignore all HTML files:
+**/*.html
