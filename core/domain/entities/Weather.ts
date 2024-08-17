@@ -1,6 +1,6 @@
 import { Wind } from './Wind';
 
-export interface CurrentWeather {
+export interface Weather {
     temp: number;
     feels_like: number;
     temp_max: number;
