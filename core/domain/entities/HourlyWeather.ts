@@ -1,5 +1,6 @@
 import { UniteDegree } from './UniteDegree';
 import { WeatherState } from './WeatherState';
+import { Wind } from './Wind';
 
 export interface HourlyWeather {
     type: 'hourly';
@@ -8,4 +9,5 @@ export interface HourlyWeather {
     weather: WeatherState;
     unite: UniteDegree;
     humidity: number;
+    wind: Wind;
 }

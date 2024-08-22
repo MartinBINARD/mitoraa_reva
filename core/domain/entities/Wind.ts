@@ -1,4 +1,7 @@
+import { UniteSpeed } from './UniteSpeed';
+
 export interface Wind {
     speed: number;
-    deg: number;
+    direction: number;
+    unite: UniteSpeed;
 }
