@@ -7,4 +7,5 @@ export interface HourlyWeather {
     temperature: number;
     weather: WeatherState;
     unite: UniteDegree;
+    humidity: number;
 }
