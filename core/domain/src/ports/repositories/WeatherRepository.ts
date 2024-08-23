@@ -1,5 +1,5 @@
 import { DailyWeather } from '../../entities/DailyWeather';
 
-export interface WeatherRespository {
+export interface WeatherRepository {
     getCityDailyWeather(city: string): Promise<DailyWeather[]>;
 }

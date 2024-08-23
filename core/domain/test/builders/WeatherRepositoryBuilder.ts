@@ -1,5 +1,5 @@
 import { DailyWeather } from '@core/domain/src/entities/DailyWeather';
-import { WeatherRespository } from '@core/domain/src/ports/repositories/WeatherRepository';
+import { WeatherRepository } from '@core/domain/src/ports/repositories/WeatherRepository';
 
 export class WeatherRepositoryBuilder {
     private getCityDailyWeather: (city: string) => Promise<DailyWeather[]> = () => Promise.resolve([]);
@@ -9,7 +9,7 @@ export class WeatherRepositoryBuilder {
         return this;
     }
 
-    build(): WeatherRespository {
+    build(): WeatherRepository {
         return {
             getCityDailyWeather: this.getCityDailyWeather,
         };
