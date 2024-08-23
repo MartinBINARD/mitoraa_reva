@@ -3,7 +3,10 @@
   "compilerOptions": {
     "types": ["node", "jest"],
     "lib": ["DOM", "ESNext"],
-    "baseUrl": "*"
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["core/*"],
+    }
   },
   "exclude": ["ios", "android"],
   "include": ["src/**/*", "core/**/*"]

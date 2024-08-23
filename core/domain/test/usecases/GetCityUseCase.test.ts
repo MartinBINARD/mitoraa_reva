@@ -1,7 +1,7 @@
-import { City } from '../src/entities/City';
-import { CityRepository } from '../src/ports/repositories/CityRepository';
-import { GetCityRequest } from '../src/ports/requests/GetCityRequest';
-import { GetCityUseCase } from '../src/usecases/GetCityUseCase';
+import { City } from '@core/domain/src/entities/City';
+import { CityRepository } from '@core/domain/src/ports/repositories/CityRepository';
+import { GetCityRequest } from '@core/domain/src/ports/requests/GetCityRequest';
+import { GetCityUseCase } from '@core/domain/src/usecases/GetCityUseCase';
 
 describe('Get city use case', () => {
     it('display city', async () => {
