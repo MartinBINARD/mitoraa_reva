@@ -8,6 +8,6 @@ export interface DailyWeather {
     temperatureMax: number;
     temperatureMin: number;
     unite: UniteDegree;
-    sunrise: number;
-    sunset: number;
+    sunrise: string;
+    sunset: string;
 }
