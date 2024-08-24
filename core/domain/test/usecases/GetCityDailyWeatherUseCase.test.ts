@@ -1,9 +1,9 @@
 import { DailyWeather } from '@core/domain/src/entities/DailyWeather';
 import { WeatherState } from '@core/domain/src/entities/WeatherState';
-import { GetDailyWeatherRequest } from '@core/domain/src/ports/requests/GetWeatherRequest';
 import { GetCityDailyWeatherUseCase } from '@core/domain/src/usecases/GetCityDailyWeatherUseCase';
 import { GetDailyWeatherPresenterBuilder } from '../builders/GetDailyWeatherPresenterBuilder';
 import { WeatherRepositoryBuilder } from '../builders/WeatherRepositoryBuilder';
+import { GetDailyWeatherRequest } from '@core/domain/src/ports/requests/GetDailyWeatherRequest';
 
 describe('Get city daily weather use case', () => {
     const weatherDataInCelsius: DailyWeather[] = [
