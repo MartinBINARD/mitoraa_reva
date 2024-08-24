@@ -11,7 +11,9 @@ export class GetCityHourlyWeatherUseCase {
     }
 
     private convertToMilesPerHour(speed: number) {
-        return speed * 0.62;
+        const speedInMiles = speed * 0.62;
+
+        return Math.round(speedInMiles * 10) / 10;
     }
 
     async execute(request: GetHourlyWeatherRequest, presenter: GetHourlyWeatherPresenter) {
@@ -25,6 +27,8 @@ export class GetCityHourlyWeatherUseCase {
                         hourWeather.wind.unit = 'mph';
                         hourWeather.temperature = this.convertToFarenheit(hourWeather.temperature);
                         hourWeather.wind.speed = this.convertToMilesPerHour(hourWeather.wind.speed);
+
+                        return hourWeather;
                     });
                 } else {
                     return dayWeather;
