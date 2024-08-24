@@ -17,7 +17,7 @@ export class GetCityDailyWeatherUseCase {
             .then((weekWeather: DailyWeather[]) => {
                 if (request.unite == 'F') {
                     return weekWeather.map((dayWeather) => {
-                        dayWeather.unite = 'F';
+                        dayWeather.unit = 'F';
                         dayWeather.temperatureMax = this.convertToFarenheit(dayWeather.temperatureMax);
                         dayWeather.temperatureMin = this.convertToFarenheit(dayWeather.temperatureMin);
 
