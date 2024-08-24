@@ -3,6 +3,7 @@ import { WeatherState } from '@core/domain/src/entities/WeatherState';
 import { GetDailyWeatherRequest } from '@core/domain/src/ports/requests/GetWeatherRequest';
 import { GetDailyWeatherPresenterBuilder } from '../builders/GetDailyWeatherPresenterBuilder';
 import { WeatherRepositoryBuilder } from '../builders/WeatherRepositoryBuilder';
+import { GetCityDailyWeatherUseCase } from '@core/domain/src/usecases/GetCityDailyWeatherUseCase';
 
 describe('Get city daily weather use case', () => {
     it('Should display daily weather in °C for next days', async () => {
