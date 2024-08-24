@@ -15,7 +15,7 @@ export class GetCityDailyWeatherUseCase {
         const weekWeather: DailyWeather[] = await this.weatherRepository
             .getCityDailyWeather(request.city)
             .then((weekWeather: DailyWeather[]) => {
-                if (request.unite == 'F') {
+                if (request.unit == 'F') {
                     return weekWeather.map((dayWeather) => {
                         dayWeather.unit = 'F';
                         dayWeather.temperatureMax = this.convertToFarenheit(dayWeather.temperatureMax);
