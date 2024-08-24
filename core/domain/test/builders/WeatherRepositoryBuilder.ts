@@ -4,7 +4,7 @@ import { WeatherRepository } from '@core/domain/src/ports/repositories/WeatherRe
 export class WeatherRepositoryBuilder {
     private getCityDailyWeather: (city: string) => Promise<DailyWeather[]> = () => Promise.resolve([]);
 
-    withGetCityWeekWeathe(getCityWeekWeather: (city: string) => Promise<DailyWeather[]>) {
+    withGetCityWeekWeather(getCityWeekWeather: (city: string) => Promise<DailyWeather[]>) {
         this.getCityDailyWeather = getCityWeekWeather;
         return this;
     }
