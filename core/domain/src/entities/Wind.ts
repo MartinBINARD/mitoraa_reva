@@ -1,7 +1,7 @@
-import { UniteSpeed } from './UniteSpeed';
+import { UnitSpeed } from './UnitSpeed';
 
 export interface Wind {
     speed: number;
     direction: number;
-    unite: UniteSpeed;
+    unit: UnitSpeed;
 }

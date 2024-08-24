@@ -1,7 +1,7 @@
 import { DailyWeather } from '../entities/DailyWeather';
 import { GetDailyWeatherPresenter } from '../ports/presenters/GetDailyWeatherPresenter';
 import { WeatherRepository } from '../ports/repositories/WeatherRepository';
-import { GetDailyWeatherRequest } from '../ports/requests/GetWeatherRequest';
+import { GetDailyWeatherRequest } from '../ports/requests/GetDailyWeatherRequest';
 
 export class GetCityDailyWeatherUseCase {
     constructor(private readonly weatherRepository: WeatherRepository) {}
@@ -15,9 +15,9 @@ export class GetCityDailyWeatherUseCase {
         const weekWeather: DailyWeather[] = await this.weatherRepository
             .getCityDailyWeather(request.city)
             .then((weekWeather: DailyWeather[]) => {
-                if (request.unite == 'F') {
+                if (request.unit == 'F') {
                     return weekWeather.map((dayWeather) => {
-                        dayWeather.unite = 'F';
+                        dayWeather.unit = 'F';
                         dayWeather.temperatureMax = this.convertToFarenheit(dayWeather.temperatureMax);
                         dayWeather.temperatureMin = this.convertToFarenheit(dayWeather.temperatureMin);
 
