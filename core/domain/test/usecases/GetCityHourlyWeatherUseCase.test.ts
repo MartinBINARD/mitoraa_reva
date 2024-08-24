@@ -1,6 +1,7 @@
 import { HourlyWeather } from '@core/domain/src/entities/HourlyWeather';
 import { WeatherState } from '@core/domain/src/entities/WeatherState';
 import { GetHourlyWeatherRequest } from '@core/domain/src/ports/requests/GetHourlyWeatherRequest';
+import { GetCityHourlyWeatherUseCase } from '@core/domain/src/usecases/GetCityHourlyWeatherUseCase';
 import { GetHourlyWeatherPresenterBuilder } from '../builders/GetHourlyWeatherPresenterBuilder';
 import { WeatherRepositoryBuilder } from '../builders/WeatherRepositoryBuilder';
 
@@ -35,8 +36,8 @@ describe('Get city hourly weather use case', () => {
         },
     ];
 
-    it('Should display daily weather in C° for next hours', async () => {
-        return new Promise<HourlyWeather>((resolve) => {
+    it('Should display hourly weather in C° for next hours', async () => {
+        return new Promise<HourlyWeather[]>((resolve) => {
             const weatherRepository = new WeatherRepositoryBuilder()
                 .withGetCityHourlyWeather((_) => Promise.resolve(weatherDataMetric))
                 .build();
