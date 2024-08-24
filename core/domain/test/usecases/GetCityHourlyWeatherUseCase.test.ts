@@ -36,7 +36,37 @@ describe('Get city hourly weather use case', () => {
         },
     ];
 
-    it('Should display hourly weather in C° for next hours', async () => {
+    const weatherDataImperial: HourlyWeather[] = [
+        {
+            type: 'hourly',
+            time: '7:00',
+            temperature: 77,
+            weather: WeatherState.clear_sky,
+            unit: 'F',
+            humidity: 90,
+            wind: { speed: 3.1, direction: 50, unit: 'mph' },
+        },
+        {
+            type: 'hourly',
+            time: '8:00',
+            temperature: 80.6,
+            weather: WeatherState.clear_sky,
+            unit: 'F',
+            humidity: 90,
+            wind: { speed: 4.5, direction: 50, unit: 'mph' },
+        },
+        {
+            type: 'hourly',
+            time: '9:00',
+            temperature: 84.2,
+            weather: WeatherState.clear_sky,
+            unit: 'F',
+            humidity: 90,
+            wind: { speed: 4.7, direction: 55, unit: 'mph' },
+        },
+    ];
+
+    it('Should display hourly weather in metric for next hours', async () => {
         return new Promise<HourlyWeather[]>((resolve) => {
             const weatherRepository = new WeatherRepositoryBuilder()
                 .withGetCityHourlyWeather((_) => Promise.resolve(weatherDataMetric))
@@ -51,7 +81,26 @@ describe('Get city hourly weather use case', () => {
         }).then((weather: HourlyWeather[]) => {
             expect(weather).not.toBeNull();
             expect(weather).toHaveLength(3);
-            expect(weather).toBe(weatherDataMetric);
+            expect(weather).toEqual(weatherDataMetric);
+        });
+    });
+
+    it('Should display hourly weather in imperial for next hours', async () => {
+        return new Promise<HourlyWeather[]>((resolve) => {
+            const weatherRepository = new WeatherRepositoryBuilder()
+                .withGetCityHourlyWeather((_) => Promise.resolve(weatherDataMetric))
+                .build();
+            const useCase = new GetCityHourlyWeatherUseCase(weatherRepository);
+            const weatherRequest = new GetHourlyWeatherRequest('Papeete', 'F', 'mph');
+            const presenter = new GetHourlyWeatherPresenterBuilder()
+                .withDisplayWeather((weather: HourlyWeather[]) => resolve(weather))
+                .build();
+
+            useCase.execute(weatherRequest, presenter);
+        }).then((weather: HourlyWeather[]) => {
+            expect(weather).not.toBeNull();
+            expect(weather).toHaveLength(3);
+            expect(weather).toEqual(weatherDataImperial);
         });
     });
 });
