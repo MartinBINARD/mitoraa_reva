@@ -1,5 +1,5 @@
 import { UnitDegree } from '@core/domain/src/entities/UnitDegree';
 
-export class GetDailyWeatherRequest {
+export class GetCityDailyWeatherRequest {
     constructor(public readonly city: string, public readonly unit: UnitDegree = 'C') {}
 }

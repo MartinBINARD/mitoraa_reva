@@ -1,7 +1,7 @@
 import { HourlyWeather } from '../entities/HourlyWeather';
 import { GetHourlyWeatherPresenter } from '../ports/presenters/GetHourlyWeatherPresenter';
 import { WeatherRepository } from '../ports/repositories/WeatherRepository';
-import { GetHourlyWeatherRequest } from '../ports/requests/GetHourlyWeatherRequest';
+import { GetHourlyWeatherRequest } from '../ports/requests/GetCityHourlyWeatherRequest';
 
 export class GetCityHourlyWeatherUseCase {
     constructor(private readonly weatherRepository: WeatherRepository) {}

@@ -1,9 +1,9 @@
 import { DailyWeather } from '@core/domain/src/entities/DailyWeather';
 import { WeatherState } from '@core/domain/src/entities/WeatherState';
+import { GetCityDailyWeatherRequest } from '@core/domain/src/ports/requests/GetCityDailyWeatherRequest';
 import { GetCityDailyWeatherUseCase } from '@core/domain/src/usecases/GetCityDailyWeatherUseCase';
 import { GetDailyWeatherPresenterBuilder } from '../builders/GetDailyWeatherPresenterBuilder';
 import { WeatherRepositoryBuilder } from '../builders/WeatherRepositoryBuilder';
-import { GetDailyWeatherRequest } from '@core/domain/src/ports/requests/GetDailyWeatherRequest';
 
 describe('Get city daily weather use case', () => {
     const weatherDataInCelsius: DailyWeather[] = [
@@ -58,7 +58,7 @@ describe('Get city daily weather use case', () => {
                 .withGetCityWeekWeather((_) => Promise.resolve(weatherDataInCelsius))
                 .build();
             const useCase = new GetCityDailyWeatherUseCase(weatherRepository);
-            const weatherRequest = new GetDailyWeatherRequest('Papeete', 'C');
+            const weatherRequest = new GetCityDailyWeatherRequest('Papeete', 'C');
 
             const presenter = new GetDailyWeatherPresenterBuilder()
                 .withDisplayWeather((weather: DailyWeather[]) => resolve(weather))
@@ -78,7 +78,7 @@ describe('Get city daily weather use case', () => {
                 .withGetCityWeekWeather((_) => Promise.resolve(weatherDataInCelsius))
                 .build();
             const useCase = new GetCityDailyWeatherUseCase(weatherRepository);
-            const weatherRequest = new GetDailyWeatherRequest('Papeete', 'F');
+            const weatherRequest = new GetCityDailyWeatherRequest('Papeete', 'F');
 
             const presenter = new GetDailyWeatherPresenterBuilder()
                 .withDisplayWeather((weather: DailyWeather[]) => resolve(weather))

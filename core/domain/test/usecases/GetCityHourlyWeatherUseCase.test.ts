@@ -1,6 +1,6 @@
 import { HourlyWeather } from '@core/domain/src/entities/HourlyWeather';
 import { WeatherState } from '@core/domain/src/entities/WeatherState';
-import { GetHourlyWeatherRequest } from '@core/domain/src/ports/requests/GetHourlyWeatherRequest';
+import { GetCityHourlyWeatherRequest } from '@core/domain/src/ports/requests/GetCityHourlyWeatherRequest';
 import { GetCityHourlyWeatherUseCase } from '@core/domain/src/usecases/GetCityHourlyWeatherUseCase';
 import { GetHourlyWeatherPresenterBuilder } from '../builders/GetHourlyWeatherPresenterBuilder';
 import { WeatherRepositoryBuilder } from '../builders/WeatherRepositoryBuilder';
@@ -72,7 +72,7 @@ describe('Get city hourly weather use case', () => {
                 .withGetCityHourlyWeather((_) => Promise.resolve(weatherDataMetric))
                 .build();
             const useCase = new GetCityHourlyWeatherUseCase(weatherRepository);
-            const weatherRequest = new GetHourlyWeatherRequest('Papeete', 'C', 'km/s');
+            const weatherRequest = new GetCityHourlyWeatherRequest('Papeete', 'C', 'km/s');
             const presenter = new GetHourlyWeatherPresenterBuilder()
                 .withDisplayWeather((weather: HourlyWeather[]) => resolve(weather))
                 .build();
@@ -91,7 +91,7 @@ describe('Get city hourly weather use case', () => {
                 .withGetCityHourlyWeather((_) => Promise.resolve(weatherDataMetric))
                 .build();
             const useCase = new GetCityHourlyWeatherUseCase(weatherRepository);
-            const weatherRequest = new GetHourlyWeatherRequest('Papeete', 'F', 'mph');
+            const weatherRequest = new GetCityHourlyWeatherRequest('Papeete', 'F', 'mph');
             const presenter = new GetHourlyWeatherPresenterBuilder()
                 .withDisplayWeather((weather: HourlyWeather[]) => resolve(weather))
                 .build();
