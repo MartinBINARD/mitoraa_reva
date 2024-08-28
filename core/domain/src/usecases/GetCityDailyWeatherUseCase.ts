@@ -1,7 +1,7 @@
 import { DailyWeather } from '../entities/DailyWeather';
 import { GetDailyWeatherPresenter } from '../ports/presenters/GetDailyWeatherPresenter';
 import { WeatherRepository } from '../ports/repositories/WeatherRepository';
-import { GetDailyWeatherRequest } from '../ports/requests/GetDailyWeatherRequest';
+import { GetDailyWeatherRequest } from '../ports/requests/GetCityDailyWeatherRequest';
 
 export class GetCityDailyWeatherUseCase {
     constructor(private readonly weatherRepository: WeatherRepository) {}

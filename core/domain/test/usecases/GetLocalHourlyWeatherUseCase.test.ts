@@ -1,11 +1,11 @@
 import { HourlyWeather } from '@core/domain/src/entities/HourlyWeather';
 import { WeatherState } from '@core/domain/src/entities/WeatherState';
-import { GetCityHourlyWeatherRequest } from '@core/domain/src/ports/requests/GetCityHourlyWeatherRequest';
-import { GetCityHourlyWeatherUseCase } from '@core/domain/src/usecases/GetCityHourlyWeatherUseCase';
+import { GetLocalHourlyWeatherRequest } from '@core/domain/src/ports/requests/GetLocalHourlyRequest';
+import { GetLocalHourlyWeatherUseCase } from '@core/domain/src/usecases/GetLocalHourlyWeatherUseCase';
 import { GetHourlyWeatherPresenterBuilder } from '../builders/GetHourlyWeatherPresenterBuilder';
 import { WeatherRepositoryBuilder } from '../builders/WeatherRepositoryBuilder';
 
-describe('Get city hourly weather use case', () => {
+describe('Get local hourly weather use case', () => {
     const weatherDataMetric: HourlyWeather[] = [
         {
             type: 'hourly',
@@ -66,13 +66,17 @@ describe('Get city hourly weather use case', () => {
         },
     ];
 
-    it('Should display hourly weather in metric for next hours', async () => {
+    it('Should display local hourly weather in metric for next hours', async () => {
         return new Promise<HourlyWeather[]>((resolve) => {
             const weatherRepository = new WeatherRepositoryBuilder()
-                .withGetCityHourlyWeather((_) => Promise.resolve(weatherDataMetric))
+                .withGetLocalHourlyWeather((_) => Promise.resolve(weatherDataMetric))
                 .build();
-            const useCase = new GetCityHourlyWeatherUseCase(weatherRepository);
-            const weatherRequest = new GetCityHourlyWeatherRequest('Papeete', 'C', 'km/s');
+            const useCase = new GetLocalHourlyWeatherUseCase(weatherRepository);
+            const weatherRequest = new GetLocalHourlyWeatherRequest(
+                { latitude: -17.539247972095957, longitude: -149.56692494903635 },
+                'C',
+                'km/s',
+            );
             const presenter = new GetHourlyWeatherPresenterBuilder()
                 .withDisplayWeather((weather: HourlyWeather[]) => resolve(weather))
                 .build();
@@ -85,13 +89,17 @@ describe('Get city hourly weather use case', () => {
         });
     });
 
-    it('Should display hourly weather in imperial for next hours', async () => {
+    it('Should display local hourly weather in imperial for next hours ', async () => {
         return new Promise<HourlyWeather[]>((resolve) => {
             const weatherRepository = new WeatherRepositoryBuilder()
-                .withGetCityHourlyWeather((_) => Promise.resolve(weatherDataMetric))
+                .withGetLocalHourlyWeather((_) => Promise.resolve(weatherDataMetric))
                 .build();
-            const useCase = new GetCityHourlyWeatherUseCase(weatherRepository);
-            const weatherRequest = new GetCityHourlyWeatherRequest('Papeete', 'F', 'mph');
+            const useCase = new GetLocalHourlyWeatherUseCase(weatherRepository);
+            const weatherRequest = new GetLocalHourlyWeatherRequest(
+                { latitude: -17.539247972095957, longitude: -149.56692494903635 },
+                'F',
+                'mph',
+            );
             const presenter = new GetHourlyWeatherPresenterBuilder()
                 .withDisplayWeather((weather: HourlyWeather[]) => resolve(weather))
                 .build();
