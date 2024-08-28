@@ -1,3 +1,4 @@
+import { GetCitiesUseCase } from '@core/domain/src/usecases/GetCitiesUseCase';
 import { CityRepositoryBuilder } from '../builders/CityRepositoryBuilder';
 import { GetCitiesPresenterBuilder } from '../builders/GetCitiesPresenterBuilder';
 
