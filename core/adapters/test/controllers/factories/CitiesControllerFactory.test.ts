@@ -1,3 +1,4 @@
+import { CitiesControllerFactory } from '@core/adapters/src/controllers/factories/CitiesControllerFactory';
 import { GetCitiesUseCaseBuilder } from '../../builders/GetCitiesUseCaseBuilder';
 
 describe('Cities Controller Factory', () => {
