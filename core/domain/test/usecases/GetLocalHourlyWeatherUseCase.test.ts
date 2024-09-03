@@ -14,7 +14,7 @@ describe('Get local hourly weather use case', () => {
             weather: WeatherState.clear_sky,
             unitTemperature: 'C',
             humidity: 90,
-            wind: { speed: 5, direction: 50, unitSpeed: 'km/s' },
+            wind: { speed: 5, direction: 50, unitSpeed: 'km/h' },
         },
         {
             type: 'hourly',
@@ -23,7 +23,7 @@ describe('Get local hourly weather use case', () => {
             weather: WeatherState.clear_sky,
             unitTemperature: 'C',
             humidity: 90,
-            wind: { speed: 7.2, direction: 50, unitSpeed: 'km/s' },
+            wind: { speed: 7.2, direction: 50, unitSpeed: 'km/h' },
         },
         {
             type: 'hourly',
@@ -32,7 +32,7 @@ describe('Get local hourly weather use case', () => {
             weather: WeatherState.clear_sky,
             unitTemperature: 'C',
             humidity: 90,
-            wind: { speed: 7.5, direction: 55, unitSpeed: 'km/s' },
+            wind: { speed: 7.5, direction: 55, unitSpeed: 'km/h' },
         },
     ];
 
@@ -75,7 +75,7 @@ describe('Get local hourly weather use case', () => {
             const weatherRequest = new GetLocalHourlyWeatherRequest(
                 { latitude: -17.539247972095957, longitude: -149.56692494903635 },
                 'C',
-                'km/s',
+                'km/h',
             );
             const presenter = new GetHourlyWeatherPresenterBuilder()
                 .withDisplayWeather((weather: HourlyWeather[]) => resolve(weather))

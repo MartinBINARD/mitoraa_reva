@@ -42,7 +42,7 @@ describe('City Controller', () => {
             weather: WeatherState.clear_sky,
             unitTemperature: 'C',
             humidity: 90,
-            wind: { speed: 7.2, direction: 50, unitSpeed: 'km/s' },
+            wind: { speed: 7.2, direction: 50, unitSpeed: 'km/h' },
         },
         {
             type: 'hourly',
@@ -51,7 +51,7 @@ describe('City Controller', () => {
             weather: WeatherState.clear_sky,
             unitTemperature: 'C',
             humidity: 90,
-            wind: { speed: 7.5, direction: 55, unitSpeed: 'km/s' },
+            wind: { speed: 7.5, direction: 55, unitSpeed: 'km/h' },
         },
     ];
 
@@ -121,7 +121,7 @@ describe('City Controller', () => {
         expect(controller.vm.hourlyWeather).toHaveLength(2);
         expect(controller.vm.hourlyWeather?.[0].weather).toBe(WeatherState.clear_sky);
         expect(controller.vm.hourlyWeather?.[0].unitTemperature).toBe('C');
-        expect(controller.vm.hourlyWeather?.[1].wind.unitSpeed).toBe('km/s');
+        expect(controller.vm.hourlyWeather?.[1].wind.unitSpeed).toBe('km/h');
         expect(controller.vm.dailyWeather).toBeUndefined();
     });
 

@@ -14,7 +14,7 @@ describe('Get city hourly weather use case', () => {
             weather: WeatherState.clear_sky,
             unitTemperature: 'C',
             humidity: 90,
-            wind: { speed: 7.2, direction: 50, unitSpeed: 'km/s' },
+            wind: { speed: 7.2, direction: 50, unitSpeed: 'km/h' },
         },
         {
             type: 'hourly',
@@ -23,7 +23,7 @@ describe('Get city hourly weather use case', () => {
             weather: WeatherState.clear_sky,
             unitTemperature: 'C',
             humidity: 90,
-            wind: { speed: 7.5, direction: 55, unitSpeed: 'km/s' },
+            wind: { speed: 7.5, direction: 55, unitSpeed: 'km/h' },
         },
     ];
 
@@ -54,7 +54,7 @@ describe('Get city hourly weather use case', () => {
                 .withGetCityHourlyWeather((_) => Promise.resolve(hourlyWeatherInMetric))
                 .build();
             const useCase = new GetCityHourlyWeatherUseCase(weatherRepository);
-            const weatherRequest = new GetCityHourlyWeatherRequest('Papeete', 'C', 'km/s');
+            const weatherRequest = new GetCityHourlyWeatherRequest('Papeete', 'C', 'km/h');
             const presenter = new GetHourlyWeatherPresenterBuilder()
                 .withDisplayWeather((weather: HourlyWeather[]) => resolve(weather))
                 .build();
