@@ -1,1 +1,1 @@
-export type unitTemperature = 'C' | 'F';
+export type UnitTemperature = 'C' | 'F';

@@ -1,4 +1,4 @@
-import { unitTemperature } from './UnitTemperature';
+import { UnitTemperature } from './UnitTemperature';
 import { WeatherState } from './WeatherState';
 
 export interface DailyWeather {
@@ -7,7 +7,7 @@ export interface DailyWeather {
     weather: WeatherState;
     temperatureMax: number;
     temperatureMin: number;
-    unitTemperature: unitTemperature;
+    unitTemperature: UnitTemperature;
     sunrise: string;
     sunset: string;
 }
