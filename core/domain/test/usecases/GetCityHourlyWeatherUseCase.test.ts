@@ -6,16 +6,7 @@ import { GetHourlyWeatherPresenterBuilder } from '../builders/GetHourlyWeatherPr
 import { WeatherRepositoryBuilder } from '../builders/WeatherRepositoryBuilder';
 
 describe('Get city hourly weather use case', () => {
-    const weatherDataMetric: HourlyWeather[] = [
-        {
-            type: 'hourly',
-            time: '7:00',
-            temperature: 25,
-            weather: WeatherState.clear_sky,
-            unitTemperature: 'C',
-            humidity: 90,
-            wind: { speed: 5, direction: 50, unitSpeed: 'km/s' },
-        },
+    const hourlyWeatherInMetric: HourlyWeather[] = [
         {
             type: 'hourly',
             time: '8:00',
@@ -36,16 +27,7 @@ describe('Get city hourly weather use case', () => {
         },
     ];
 
-    const weatherDataImperial: HourlyWeather[] = [
-        {
-            type: 'hourly',
-            time: '7:00',
-            temperature: 77,
-            weather: WeatherState.clear_sky,
-            unitTemperature: 'F',
-            humidity: 90,
-            wind: { speed: 3.1, direction: 50, unitSpeed: 'mph' },
-        },
+    const hourlyWeatherInImperial: HourlyWeather[] = [
         {
             type: 'hourly',
             time: '8:00',
@@ -69,7 +51,7 @@ describe('Get city hourly weather use case', () => {
     it('Should display hourly weather in metric for next hours', async () => {
         return new Promise<HourlyWeather[]>((resolve) => {
             const weatherRepository = new WeatherRepositoryBuilder()
-                .withGetCityHourlyWeather((_) => Promise.resolve(weatherDataMetric))
+                .withGetCityHourlyWeather((_) => Promise.resolve(hourlyWeatherInMetric))
                 .build();
             const useCase = new GetCityHourlyWeatherUseCase(weatherRepository);
             const weatherRequest = new GetCityHourlyWeatherRequest('Papeete', 'C', 'km/s');
@@ -80,15 +62,15 @@ describe('Get city hourly weather use case', () => {
             useCase.execute(weatherRequest, presenter);
         }).then((weather: HourlyWeather[]) => {
             expect(weather).not.toBeNull();
-            expect(weather).toHaveLength(3);
-            expect(weather).toEqual(weatherDataMetric);
+            expect(weather).toHaveLength(2);
+            expect(weather).toEqual(hourlyWeatherInMetric);
         });
     });
 
     it('Should display hourly weather in imperial for next hours', async () => {
         return new Promise<HourlyWeather[]>((resolve) => {
             const weatherRepository = new WeatherRepositoryBuilder()
-                .withGetCityHourlyWeather((_) => Promise.resolve(weatherDataMetric))
+                .withGetCityHourlyWeather((_) => Promise.resolve(hourlyWeatherInMetric))
                 .build();
             const useCase = new GetCityHourlyWeatherUseCase(weatherRepository);
             const weatherRequest = new GetCityHourlyWeatherRequest('Papeete', 'F', 'mph');
@@ -99,8 +81,8 @@ describe('Get city hourly weather use case', () => {
             useCase.execute(weatherRequest, presenter);
         }).then((weather: HourlyWeather[]) => {
             expect(weather).not.toBeNull();
-            expect(weather).toHaveLength(3);
-            expect(weather).toEqual(weatherDataImperial);
+            expect(weather).toHaveLength(2);
+            expect(weather).toEqual(hourlyWeatherInImperial);
         });
     });
 });
