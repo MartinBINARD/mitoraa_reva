@@ -1,4 +1,4 @@
-import { UnitDegree } from './UnitDegree';
+import { UnitDegree } from './UnitTemperature';
 import { WeatherState } from './WeatherState';
 import { Wind } from './Wind';
 
@@ -7,7 +7,7 @@ export interface HourlyWeather {
     time: string;
     temperature: number;
     weather: WeatherState;
-    unit: UnitDegree;
+    unitTemperature: UnitDegree;
     humidity: number;
     wind: Wind;
 }

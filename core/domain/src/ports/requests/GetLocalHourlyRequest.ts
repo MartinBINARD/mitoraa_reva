@@ -1,6 +1,6 @@
 import { Location } from '../../entities/Location';
-import { UnitDegree } from '../../entities/UnitDegree';
 import { UnitSpeed } from '../../entities/UnitSpeed';
+import { UnitDegree } from '../../entities/UnitTemperature';
 
 export class GetLocalHourlyWeatherRequest {
     constructor(

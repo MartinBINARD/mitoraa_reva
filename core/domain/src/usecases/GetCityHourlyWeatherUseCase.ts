@@ -23,8 +23,8 @@ export class GetCityHourlyWeatherUseCase {
             .then((dayWeather: HourlyWeather[]) => {
                 if (request.unitTemperature == 'F' && request.unitSpeed == 'mph') {
                     return dayWeather.map((hourWeather) => {
-                        hourWeather.unit = 'F';
-                        hourWeather.wind.unit = 'mph';
+                        hourWeather.unitTemperature = 'F';
+                        hourWeather.wind.unitSpeed = 'mph';
                         hourWeather.temperature = this.convertToFarenheit(hourWeather.temperature);
                         hourWeather.wind.speed = this.convertToMilesPerHour(hourWeather.wind.speed);
 
