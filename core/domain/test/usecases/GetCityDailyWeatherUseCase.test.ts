@@ -6,7 +6,7 @@ import { GetDailyWeatherPresenterBuilder } from '../builders/GetDailyWeatherPres
 import { WeatherRepositoryBuilder } from '../builders/WeatherRepositoryBuilder';
 
 describe('Get city daily weather use case', () => {
-    const weatherDataInCelsius: DailyWeather[] = [
+    const weatherDataInMetric: DailyWeather[] = [
         {
             type: 'daily',
             day: '22/08/2021',
@@ -29,7 +29,7 @@ describe('Get city daily weather use case', () => {
         },
     ];
 
-    const weatherDataInFahrenheit: DailyWeather[] = [
+    const weatherDataInImperial: DailyWeather[] = [
         {
             type: 'daily',
             day: '22/08/2021',
@@ -55,7 +55,7 @@ describe('Get city daily weather use case', () => {
     it('Should display daily weather in C° for next days', async () => {
         return new Promise<DailyWeather[]>((resolve) => {
             const weatherRepository = new WeatherRepositoryBuilder()
-                .withGetCityWeekWeather((_) => Promise.resolve(weatherDataInCelsius))
+                .withGetCityWeekWeather((_) => Promise.resolve(weatherDataInMetric))
                 .build();
             const useCase = new GetCityDailyWeatherUseCase(weatherRepository);
             const weatherRequest = new GetCityDailyWeatherRequest('Papeete', 'C');
@@ -68,14 +68,14 @@ describe('Get city daily weather use case', () => {
         }).then((weather: DailyWeather[]) => {
             expect(weather).not.toBeNull();
             expect(weather).toHaveLength(2);
-            expect(weather).toEqual(weatherDataInCelsius);
+            expect(weather).toEqual(weatherDataInMetric);
         });
     });
 
     it('Should display daily weather in F° for next days', async () => {
         return new Promise<DailyWeather[]>((resolve) => {
             const weatherRepository = new WeatherRepositoryBuilder()
-                .withGetCityWeekWeather((_) => Promise.resolve(weatherDataInCelsius))
+                .withGetCityWeekWeather((_) => Promise.resolve(weatherDataInMetric))
                 .build();
             const useCase = new GetCityDailyWeatherUseCase(weatherRepository);
             const weatherRequest = new GetCityDailyWeatherRequest('Papeete', 'F');
@@ -88,7 +88,7 @@ describe('Get city daily weather use case', () => {
         }).then((weather: DailyWeather[]) => {
             expect(weather).not.toBeNull();
             expect(weather).toHaveLength(2);
-            expect(weather).toEqual(weatherDataInFahrenheit);
+            expect(weather).toEqual(weatherDataInImperial);
         });
     });
 });
