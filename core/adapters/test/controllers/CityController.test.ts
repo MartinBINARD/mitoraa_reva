@@ -55,33 +55,10 @@ describe('City Controller', () => {
         },
     ];
 
-    const weatherDataInImperial: DailyWeather[] = [
-        {
-            type: 'daily',
-            day: '22/08/2021',
-            temperatureMin: 71.6,
-            temperatureMax: 80.6,
-            weather: WeatherState.clear_sky,
-            unitTemperature: 'F',
-            sunrise: '6:12',
-            sunset: '17:51',
-        },
-        {
-            type: 'daily',
-            day: '23/08/2021',
-            temperatureMin: 73.4,
-            temperatureMax: 82.4,
-            weather: WeatherState.few_clouds,
-            unitTemperature: 'F',
-            sunrise: '6:12',
-            sunset: '17:51',
-        },
-    ];
-
     it('Should display city daily weather in metric : update daily weather vm', async () => {
         const getCityHourlyWeatherUseCase = new GetCityHourlyWeatherUseCaseBuilder().build();
         const getCityDailyWeatherUseCaseBuilder = new GetCityDailyWeatherUseCaseBuilder()
-            .withExecute((request: GetCityDailyWeatherRequest, presenter: GetDailyWeatherPresenter) => {
+            .withExecute((_request: GetCityDailyWeatherRequest, presenter: GetDailyWeatherPresenter) => {
                 presenter.displayDailyWeather(dailyWeatherInCelsius);
             })
             .build();
@@ -103,7 +80,7 @@ describe('City Controller', () => {
 
     it('Should display city hourly weather in metric : update hourly weather vm', async () => {
         const getCityHourlyWeatherUseCase = new GetCityHourlyWeatherUseCaseBuilder()
-            .withExecute((request: GetCityHourlyWeatherRequest, presenter: GetHourlyWeatherPresenter) =>
+            .withExecute((_request: GetCityHourlyWeatherRequest, presenter: GetHourlyWeatherPresenter) =>
                 presenter.displayHourlyWeather(hourlyWeatherInMetric),
             )
             .build();
@@ -128,7 +105,7 @@ describe('City Controller', () => {
     it('Should display page loader when fetching city daily weather', async () => {
         const getCityHourlyWeatherUseCase = new GetCityHourlyWeatherUseCaseBuilder().build();
         const getCityDailyWeatherUseCaseBuilder = new GetCityDailyWeatherUseCaseBuilder()
-            .withExecute((request: GetCityDailyWeatherRequest, presenter: GetDailyWeatherPresenter) => {
+            .withExecute((_request: GetCityDailyWeatherRequest, presenter: GetDailyWeatherPresenter) => {
                 presenter.displayLoadingWeather();
             })
             .build();
@@ -148,7 +125,7 @@ describe('City Controller', () => {
     it('Should display page loader when fetching city hourly weather', async () => {
         const getCityDailyWeatherUseCaseBuilder = new GetCityDailyWeatherUseCaseBuilder().build();
         const getCityHourlyWeatherUseCase = new GetCityHourlyWeatherUseCaseBuilder()
-            .withExecute((request: GetCityHourlyWeatherRequest, presenter: GetHourlyWeatherPresenter) => {
+            .withExecute((_request: GetCityHourlyWeatherRequest, presenter: GetHourlyWeatherPresenter) => {
                 presenter.displayLoadingWeather();
             })
             .build();
@@ -168,7 +145,7 @@ describe('City Controller', () => {
     it('Should hide page loader when city daily weather fetched', async () => {
         const getCityHourlyWeatherUseCase = new GetCityHourlyWeatherUseCaseBuilder().build();
         const getCityDailyWeatherUseCaseBuilder = new GetCityDailyWeatherUseCaseBuilder()
-            .withExecute((request: GetCityDailyWeatherRequest, presenter: GetDailyWeatherPresenter) => presenter.displayDailyWeather([]))
+            .withExecute((_request: GetCityDailyWeatherRequest, presenter: GetDailyWeatherPresenter) => presenter.displayDailyWeather([]))
             .build();
         const controller = new CityController(
             'Papeete',
@@ -186,7 +163,7 @@ describe('City Controller', () => {
     it('Should hide page loader when city hourly weather fetched', async () => {
         const getCityDailyWeatherUseCaseBuilder = new GetCityDailyWeatherUseCaseBuilder().build();
         const getCityHourlyWeatherUseCase = new GetCityHourlyWeatherUseCaseBuilder()
-            .withExecute((request: GetCityHourlyWeatherRequest, presenter: GetHourlyWeatherPresenter) => {
+            .withExecute((_request: GetCityHourlyWeatherRequest, presenter: GetHourlyWeatherPresenter) => {
                 presenter.displayHourlyWeather([]);
             })
             .build();
