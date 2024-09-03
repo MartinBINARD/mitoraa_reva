@@ -1,3 +1,4 @@
+import { CityController } from '@core/adapters/src/controllers/CityController';
 import { CityPresenter } from '@core/adapters/src/presenters/CityPresenter';
 import { DailyWeather } from '@core/domain/src/entities/DailyWeather';
 import { WeatherState } from '@core/domain/src/entities/WeatherState';
@@ -5,7 +6,6 @@ import { GetDailyWeatherPresenter } from '@core/domain/src/ports/presenters/GetD
 import { GetCityDailyWeatherRequest } from '@core/domain/src/ports/requests/GetCityDailyWeatherRequest';
 import { GetCityDailyWeatherUseCaseBuilder } from '../builders/GetCityDailyWeatherUseCaseBuilder';
 import { GetCityHourlyWeatherUseCaseBuilder } from '../builders/GetCityHourlyWeatherUseCaseBuilder';
-import { CityController } from '@core/adapters/src/controllers/CityController';
 
 describe('City Controller', () => {
     it('Should display city daily weather : update daily weather vm', async () => {
@@ -44,6 +44,8 @@ describe('City Controller', () => {
             new CityPresenter(),
         );
         controller.vm.mode = 'daily';
+
+        await controller.fetchWeather();
 
         expect(controller.vm.dailyWeather).toHaveLength(2);
         expect(controller.vm.dailyWeather?.[0].weather).toBe(WeatherState.clear_sky);
