@@ -97,6 +97,24 @@ describe('City Controller', () => {
         expect(controller.vm.loading).toBeTruthy();
     });
 
+    it('Should hide page loader when city daily weather fetched', async () => {
+        const getCityHourlyWeatherUseCase = new GetCityHourlyWeatherUseCaseBuilder().build();
+        const getCityDailyWeatherUseCaseBuilder = new GetCityDailyWeatherUseCaseBuilder()
+            .withExecute((request: GetCityDailyWeatherRequest, presenter: GetDailyWeatherPresenter) => presenter.displayDailyWeather([]))
+            .build();
+        const controller = new CityController(
+            'Papeete',
+            getCityDailyWeatherUseCaseBuilder,
+            getCityHourlyWeatherUseCase,
+            new CityPresenter(),
+        );
+        controller.vm.loading = true;
+
+        await controller.fetchWeather();
+
+        expect(controller.vm.loading).toBeFalsy();
+    });
+
     it('Should fetch daily weather with imperial unit selected', async () => {
         const fetchRequest = await new Promise<GetCityDailyWeatherRequest>((resolve) => {
             const getCityHourlyWeatherUseCase = new GetCityHourlyWeatherUseCaseBuilder().build();
