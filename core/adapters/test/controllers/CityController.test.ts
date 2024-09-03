@@ -200,4 +200,24 @@ describe('City Controller', () => {
 
         expect(fetchRequest.unitTemperature).toBe('F');
     });
+
+    it('Should fetch hourly weather with imperial unit selected', async () => {
+        const fetchRequest = await new Promise<GetCityHourlyWeatherRequest>((resolve) => {
+            const getCityDailyWeatherUseCaseBuilder = new GetCityDailyWeatherUseCaseBuilder().build();
+            const getCityHourlyWeatherUseCase = new GetCityHourlyWeatherUseCaseBuilder().withExecute((request) => resolve(request)).build();
+            const controller = new CityController(
+                'Papeete',
+                getCityDailyWeatherUseCaseBuilder,
+                getCityHourlyWeatherUseCase,
+                new CityPresenter(),
+            );
+            controller.vm.mode = 'hourly';
+            controller.vm.temperatureUnite = 'F';
+
+            controller.fetchWeather();
+        });
+
+        expect(fetchRequest.unitTemperature).toBe('F');
+        expect(fetchRequest.unitSpeed).toBe('km/h');
+    });
 });
