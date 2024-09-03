@@ -1,9 +1,12 @@
 import { CityController } from '@core/adapters/src/controllers/CityController';
 import { CityPresenter } from '@core/adapters/src/presenters/CityPresenter';
 import { DailyWeather } from '@core/domain/src/entities/DailyWeather';
+import { HourlyWeather } from '@core/domain/src/entities/HourlyWeather';
 import { WeatherState } from '@core/domain/src/entities/WeatherState';
 import { GetDailyWeatherPresenter } from '@core/domain/src/ports/presenters/GetDailyWeatherPresenter';
+import { GetHourlyWeatherPresenter } from '@core/domain/src/ports/presenters/GetHourlyWeatherPresenter';
 import { GetCityDailyWeatherRequest } from '@core/domain/src/ports/requests/GetCityDailyWeatherRequest';
+import { GetCityHourlyWeatherRequest } from '@core/domain/src/ports/requests/GetCityHourlyWeatherRequest';
 import { GetCityDailyWeatherUseCaseBuilder } from '../builders/GetCityDailyWeatherUseCaseBuilder';
 import { GetCityHourlyWeatherUseCaseBuilder } from '../builders/GetCityHourlyWeatherUseCaseBuilder';
 
@@ -28,6 +31,27 @@ describe('City Controller', () => {
             unitTemperature: 'C',
             sunrise: '6:12',
             sunset: '17:51',
+        },
+    ];
+
+    const hourlyWeatherInMetric: HourlyWeather[] = [
+        {
+            type: 'hourly',
+            time: '8:00',
+            temperature: 27,
+            weather: WeatherState.clear_sky,
+            unitTemperature: 'C',
+            humidity: 90,
+            wind: { speed: 7.2, direction: 50, unitSpeed: 'km/s' },
+        },
+        {
+            type: 'hourly',
+            time: '9:00',
+            temperature: 29,
+            weather: WeatherState.clear_sky,
+            unitTemperature: 'C',
+            humidity: 90,
+            wind: { speed: 7.5, direction: 55, unitSpeed: 'km/s' },
         },
     ];
 
@@ -75,6 +99,30 @@ describe('City Controller', () => {
         expect(controller.vm.dailyWeather?.[0].weather).toBe(WeatherState.clear_sky);
         expect(controller.vm.dailyWeather?.[1].weather).toBe(WeatherState.few_clouds);
         expect(controller.vm.hourlyWeather).toBeUndefined();
+    });
+
+    it('Should display city hourly weather in metric : update hourly weather vm', async () => {
+        const getCityHourlyWeatherUseCase = new GetCityHourlyWeatherUseCaseBuilder()
+            .withExecute((request: GetCityHourlyWeatherRequest, presenter: GetHourlyWeatherPresenter) =>
+                presenter.displayHourlyWeather(hourlyWeatherInMetric),
+            )
+            .build();
+        const getCityDailyWeatherUseCaseBuilder = new GetCityDailyWeatherUseCaseBuilder().build();
+        const controller = new CityController(
+            'Papeete',
+            getCityDailyWeatherUseCaseBuilder,
+            getCityHourlyWeatherUseCase,
+            new CityPresenter(),
+        );
+        controller.vm.mode = 'hourly';
+
+        await controller.fetchWeather();
+
+        expect(controller.vm.hourlyWeather).toHaveLength(2);
+        expect(controller.vm.hourlyWeather?.[0].weather).toBe(WeatherState.clear_sky);
+        expect(controller.vm.hourlyWeather?.[0].unitTemperature).toBe('C');
+        expect(controller.vm.hourlyWeather?.[1].wind.unitSpeed).toBe('km/s');
+        expect(controller.vm.dailyWeather).toBeUndefined();
     });
 
     it('Should display page loader when fetching city daily weather', async () => {
