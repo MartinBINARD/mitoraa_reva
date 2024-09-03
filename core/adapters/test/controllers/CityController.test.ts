@@ -5,6 +5,7 @@ import { GetDailyWeatherPresenter } from '@core/domain/src/ports/presenters/GetD
 import { GetCityDailyWeatherRequest } from '@core/domain/src/ports/requests/GetCityDailyWeatherRequest';
 import { GetCityDailyWeatherUseCaseBuilder } from '../builders/GetCityDailyWeatherUseCaseBuilder';
 import { GetCityHourlyWeatherUseCaseBuilder } from '../builders/GetCityHourlyWeatherUseCaseBuilder';
+import { CityController } from '@core/adapters/src/controllers/CityController';
 
 describe('City Controller', () => {
     it('Should display city daily weather : update daily weather vm', async () => {
