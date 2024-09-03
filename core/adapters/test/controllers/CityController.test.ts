@@ -96,4 +96,24 @@ describe('City Controller', () => {
 
         expect(controller.vm.loading).toBeTruthy();
     });
+
+    it('Should fetch daily weather with imperial unit selected', async () => {
+        const fetchRequest = await new Promise<GetCityDailyWeatherRequest>((resolve) => {
+            const getCityHourlyWeatherUseCase = new GetCityHourlyWeatherUseCaseBuilder().build();
+            const getCityDailyWeatherUseCaseBuilder = new GetCityDailyWeatherUseCaseBuilder()
+                .withExecute((request) => resolve(request))
+                .build();
+            const controller = new CityController(
+                'Papeete',
+                getCityDailyWeatherUseCaseBuilder,
+                getCityHourlyWeatherUseCase,
+                new CityPresenter(),
+            );
+            controller.vm.temperatureUnite = 'F';
+
+            controller.fetchWeather();
+        });
+
+        expect(fetchRequest.unitTemperature).toBe('F');
+    });
 });
