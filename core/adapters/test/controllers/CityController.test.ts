@@ -1,3 +1,4 @@
+import { CityPresenter } from '@core/adapters/src/presenters/CityPresenter';
 import { DailyWeather } from '@core/domain/src/entities/DailyWeather';
 import { WeatherState } from '@core/domain/src/entities/WeatherState';
 import { GetDailyWeatherPresenter } from '@core/domain/src/ports/presenters/GetDailyWeatherPresenter';
@@ -35,5 +36,17 @@ describe('City Controller', () => {
                 presenter.displayDailyWeather(dailyWeatherInCelsius);
             })
             .build();
+        const controller = new CityController(
+            'Papeete',
+            getCityDailyWeatherUseCaseBuilder,
+            getCityHourlyWeatherUseCase,
+            new CityPresenter(),
+        );
+        controller.vm.mode = 'daily';
+
+        expect(controller.vm.dailyWeather).toHaveLength(2);
+        expect(controller.vm.dailyWeather?.[0].weather).toBe(WeatherState.clear_sky);
+        expect(controller.vm.dailyWeather?.[1].weather).toBe(WeatherState.few_clouds);
+        expect(controller.vm.hourlyWeather).toBeUndefined();
     });
 });
