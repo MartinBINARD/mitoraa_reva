@@ -145,6 +145,26 @@ describe('City Controller', () => {
         expect(controller.vm.loading).toBeTruthy();
     });
 
+    it('Should display page loader when fetching city hourly weather', async () => {
+        const getCityDailyWeatherUseCaseBuilder = new GetCityDailyWeatherUseCaseBuilder().build();
+        const getCityHourlyWeatherUseCase = new GetCityHourlyWeatherUseCaseBuilder()
+            .withExecute((request: GetCityHourlyWeatherRequest, presenter: GetHourlyWeatherPresenter) => {
+                presenter.displayLoadingWeather();
+            })
+            .build();
+        const controller = new CityController(
+            'Papeete',
+            getCityDailyWeatherUseCaseBuilder,
+            getCityHourlyWeatherUseCase,
+            new CityPresenter(),
+        );
+        controller.vm.mode = 'hourly';
+
+        await controller.fetchWeather();
+
+        expect(controller.vm.loading).toBeTruthy();
+    });
+
     it('Should hide page loader when city daily weather fetched', async () => {
         const getCityHourlyWeatherUseCase = new GetCityHourlyWeatherUseCaseBuilder().build();
         const getCityDailyWeatherUseCaseBuilder = new GetCityDailyWeatherUseCaseBuilder()
