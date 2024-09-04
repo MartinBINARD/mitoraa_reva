@@ -2,7 +2,7 @@ import { CitiesControllerFactory } from '@core/adapters/src/controllers/factorie
 import { GetCitiesUseCaseBuilder } from '../../builders/GetCitiesUseCaseBuilder';
 
 describe('Cities Controller Factory', () => {
-    it('Create Cities  Presenter', () => {
+    it('Create Cities Presenter', () => {
         const factory = new CitiesControllerFactory(new GetCitiesUseCaseBuilder().build());
 
         const presenter = factory.build();
