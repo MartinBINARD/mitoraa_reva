@@ -1,1 +1,1 @@
-export type UnitSpeed = 'km/s' | 'mph';
+export type UnitSpeed = 'km/h' | 'mph';

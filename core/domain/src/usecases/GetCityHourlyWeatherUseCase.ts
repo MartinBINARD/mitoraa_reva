@@ -1,7 +1,7 @@
 import { HourlyWeather } from '../entities/HourlyWeather';
 import { GetHourlyWeatherPresenter } from '../ports/presenters/GetHourlyWeatherPresenter';
 import { WeatherRepository } from '../ports/repositories/WeatherRepository';
-import { GetHourlyWeatherRequest } from '../ports/requests/GetCityHourlyWeatherRequest';
+import { GetCityHourlyWeatherRequest } from '../ports/requests/GetCityHourlyWeatherRequest';
 
 export class GetCityHourlyWeatherUseCase {
     constructor(private readonly weatherRepository: WeatherRepository) {}
@@ -16,15 +16,15 @@ export class GetCityHourlyWeatherUseCase {
         return Math.round(speedInMiles * 10) / 10;
     }
 
-    async execute(request: GetHourlyWeatherRequest, presenter: GetHourlyWeatherPresenter) {
+    async execute(request: GetCityHourlyWeatherRequest, presenter: GetHourlyWeatherPresenter) {
         presenter.displayLoadingWeather();
         const dayWeather: HourlyWeather[] = await this.weatherRepository
             .getCityHourlyWeather(request.city)
             .then((dayWeather: HourlyWeather[]) => {
                 if (request.unitTemperature == 'F' && request.unitSpeed == 'mph') {
                     return dayWeather.map((hourWeather) => {
-                        hourWeather.unit = 'F';
-                        hourWeather.wind.unit = 'mph';
+                        hourWeather.unitTemperature = 'F';
+                        hourWeather.wind.unitSpeed = 'mph';
                         hourWeather.temperature = this.convertToFarenheit(hourWeather.temperature);
                         hourWeather.wind.speed = this.convertToMilesPerHour(hourWeather.wind.speed);
 
